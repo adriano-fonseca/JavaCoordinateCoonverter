@@ -1,4 +1,4 @@
-# jcc
+# Java Coordinate Converter
 
 This is a simple Library that provide methods to convert coordinate between DD (Decimal Degree) format to DMS (Degree, minute and Second).
 
