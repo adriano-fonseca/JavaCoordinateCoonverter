@@ -1,44 +1,46 @@
 package org.jcc.dto;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class DDCoordinatePairDTO {
-  double latitude;
-  double longitude;
+  private BigDecimal latitude;
+  private BigDecimal longitude;
+  final static int SCALE = 13;
+  final static RoundingMode ROUNDINGMODE = RoundingMode.HALF_UP;
   
   public DDCoordinatePairDTO(){
     super();
   }
   
-  public DDCoordinatePairDTO(double latitude, double longitude) {
+  public DDCoordinatePairDTO(BigDecimal latitude, BigDecimal longitude) {
     super();
-    this.latitude=latitude;
-    this.longitude=longitude;
+    this.latitude=latitude.setScale(SCALE, ROUNDINGMODE);
+    this.longitude=longitude.setScale(SCALE, ROUNDINGMODE);
   }
 
-  public double getLatitude() {
+  public BigDecimal getLatitude() {
     return latitude;
   }
 
-  public void setLatitude(double latitude) {
+  public void setLatitude(BigDecimal latitude) {
     this.latitude = latitude;
   }
 
-  public double getLongitude() {
+  public BigDecimal getLongitude() {
     return longitude;
   }
 
-  public void setLongitude(double longitude) {
+  public void setLongitude(BigDecimal longitude) {
     this.longitude = longitude;
   }
-
+  
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    long temp;
-    temp = Double.doubleToLongBits(latitude);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(longitude);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
+    result = prime * result + ((latitude == null) ? 0 : latitude.hashCode());
+    result = prime * result + ((longitude == null) ? 0 : longitude.hashCode());
     return result;
   }
 
@@ -51,9 +53,15 @@ public class DDCoordinatePairDTO {
     if (getClass() != obj.getClass())
       return false;
     DDCoordinatePairDTO other = (DDCoordinatePairDTO) obj;
-    if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+    if (latitude == null) {
+      if (other.latitude != null)
+        return false;
+    } else if (!latitude.equals(other.latitude))
       return false;
-    if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
+    if (longitude == null) {
+      if (other.longitude != null)
+        return false;
+    } else if (!longitude.equals(other.longitude))
       return false;
     return true;
   }

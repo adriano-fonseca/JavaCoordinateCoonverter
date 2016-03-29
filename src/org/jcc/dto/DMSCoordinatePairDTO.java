@@ -1,6 +1,8 @@
 package org.jcc.dto;
 
+
 public class DMSCoordinatePairDTO {
+
   DMSCoordinateDTO latitude;
 
   DMSCoordinateDTO longitude;
@@ -66,5 +68,4 @@ public class DMSCoordinatePairDTO {
   public String toString() {
     return "DMSCoordinatePairDTO [latitude=" + latitude + ", longitude=" + longitude + "]";
   }
-  
 }

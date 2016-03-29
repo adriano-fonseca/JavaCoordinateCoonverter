@@ -1,5 +1,7 @@
 package org.jcc.format.parsers;
 
+import java.math.BigDecimal;
+
 import org.jcc.dto.DDCoordinatePairDTO;
 import org.jcc.dto.DMSCoordinateDTO;
 
@@ -9,8 +11,7 @@ public class ParserBetweenFormat {
     String[] ddCoordinateArray = coordinate.split(" ");
     double latitude = Double.parseDouble(ddCoordinateArray[0]);
     double longitude = Double.parseDouble(ddCoordinateArray[1]);
-    return new DDCoordinatePairDTO(latitude, longitude);
-
+    return new DDCoordinatePairDTO(new BigDecimal(latitude), new BigDecimal(longitude));
   }
 
   public static DMSCoordinateDTO parseDMSCoordinateToDMSCoordinateDTO(String coordinate) {
@@ -23,6 +24,6 @@ public class ParserBetweenFormat {
     int degrees = Integer.parseInt(ddCoordinateArray[0].substring(0, indiceDegree));
     int minutes = Integer.parseInt(ddCoordinateArray[1].substring(0, 2));
     int seconds = Integer.parseInt(ddCoordinateArray[2].substring(0, 2));
-    return new DMSCoordinateDTO(degrees, minutes, seconds, direction);
+    return new DMSCoordinateDTO(new BigDecimal(degrees), new BigDecimal(minutes), new BigDecimal(seconds), direction);
   }
 }

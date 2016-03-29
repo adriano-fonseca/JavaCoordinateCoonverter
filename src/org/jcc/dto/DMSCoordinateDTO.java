@@ -1,41 +1,47 @@
 package org.jcc.dto;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class DMSCoordinateDTO {
   
-  double degrees;
-  double minutes;
-  double seconds;
+  BigDecimal degrees;
+  BigDecimal minutes;
+  BigDecimal seconds;
   char direction;
   
-  public DMSCoordinateDTO(double degree, double minutes, double seconds, char direction){
+  final static int SCALE = 13;
+  final static RoundingMode ROUNDINGMODE = RoundingMode.HALF_UP;
+  
+  public DMSCoordinateDTO(BigDecimal degree, BigDecimal minutes, BigDecimal seconds, char direction){
     super();
-    this.degrees=degree;
-    this.minutes=minutes;
-    this.seconds=seconds;
+    this.degrees=degree.setScale(SCALE, ROUNDINGMODE);
+    this.minutes=minutes.setScale(SCALE, ROUNDINGMODE);
+    this.seconds=seconds.setScale(SCALE, ROUNDINGMODE);
     this.direction=direction;
   }
 
-  public double getDegrees() {
+  public BigDecimal getDegrees() {
     return degrees;
   }
 
-  public void setDegrees(double degrees) {
+  public void setDegrees(BigDecimal degrees) {
     this.degrees = degrees;
   }
 
-  public double getMinutes() {
+  public BigDecimal getMinutes() {
     return minutes;
   }
 
-  public void setMinutes(double minutes) {
+  public void setMinutes(BigDecimal minutes) {
     this.minutes = minutes;
   }
 
-  public double getSeconds() {
+  public BigDecimal getSeconds() {
     return seconds;
   }
 
-  public void setSeconds(double seconds) {
+  public void setSeconds(BigDecimal seconds) {
     this.seconds = seconds;
   }
 
@@ -46,19 +52,15 @@ public class DMSCoordinateDTO {
   public void setDirection(char direction) {
     this.direction = direction;
   }
-
+  
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    long temp;
-    temp = Double.doubleToLongBits(degrees);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
+    result = prime * result + ((degrees == null) ? 0 : degrees.hashCode());
     result = prime * result + direction;
-    temp = Double.doubleToLongBits(minutes);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
-    temp = Double.doubleToLongBits(seconds);
-    result = prime * result + (int) (temp ^ (temp >>> 32));
+    result = prime * result + ((minutes == null) ? 0 : minutes.hashCode());
+    result = prime * result + ((seconds == null) ? 0 : seconds.hashCode());
     return result;
   }
 
@@ -71,13 +73,22 @@ public class DMSCoordinateDTO {
     if (getClass() != obj.getClass())
       return false;
     DMSCoordinateDTO other = (DMSCoordinateDTO) obj;
-    if (Double.doubleToLongBits(degrees) != Double.doubleToLongBits(other.degrees))
+    if (degrees == null) {
+      if (other.degrees != null)
+        return false;
+    } else if (!degrees.equals(other.degrees))
       return false;
     if (direction != other.direction)
       return false;
-    if (Double.doubleToLongBits(minutes) != Double.doubleToLongBits(other.minutes))
+    if (minutes == null) {
+      if (other.minutes != null)
+        return false;
+    } else if (!minutes.equals(other.minutes))
       return false;
-    if (Double.doubleToLongBits(seconds) != Double.doubleToLongBits(other.seconds))
+    if (seconds == null) {
+      if (other.seconds != null)
+        return false;
+    } else if (!seconds.equals(other.seconds))
       return false;
     return true;
   }
