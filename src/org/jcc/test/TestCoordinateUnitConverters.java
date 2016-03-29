@@ -22,8 +22,8 @@ public class TestCoordinateUnitConverters {
     //    Girassol, Petropolis - Porto Alegere -30.0450479 -51.12681359999999
     //    -30.0450479  --->  30° 2' 42,172" S
     //    -51.12681359999999 ---> 51° 7' 36,528" W
-    DMSCoordinateDTO latide = new DMSCoordinateDTO(new BigDecimal(30), new BigDecimal(2), new BigDecimal(42.172), 'S');
-    DMSCoordinateDTO longitude = new DMSCoordinateDTO(new BigDecimal(51), new BigDecimal(7), new BigDecimal(36.528), 'W');
+    DMSCoordinateDTO latide = new DMSCoordinateDTO(30, 2, new BigDecimal(42.172), 'S');
+    DMSCoordinateDTO longitude = new DMSCoordinateDTO(51, 7, new BigDecimal(36.528), 'W');
     DMSCoordinatePairDTO dmsPairTested = new DMSCoordinatePairDTO(latide, longitude);
     DDCoordinatePairDTO ddPairExpected = new DDCoordinatePairDTO(new BigDecimal(-30.0450477777777),new BigDecimal(-51.1268133333334));
     DDCoordinatePairDTO ddPairReturned = CoordinateConverter.convertDMSCoordinatePairtoDDPair(dmsPairTested);
@@ -36,8 +36,8 @@ public class TestCoordinateUnitConverters {
     //    Girassol, Petropolis - Porto Alegere -30.0450479 -51.12681359999999
     //    -30.0450479  --->  30° 2' 42,172" S
     //    -51.12681359999999 ---> 51° 7' 36,528" W
-    DMSCoordinateDTO latitude = new DMSCoordinateDTO(new BigDecimal(30.0), new BigDecimal(2.702866666666708), new BigDecimal(42.17200000000247), 'S');
-    DMSCoordinateDTO longitude = new DMSCoordinateDTO(new BigDecimal(51), new BigDecimal(7.60879999999986), new BigDecimal(36.52799999999161), 'W');
+    DMSCoordinateDTO latitude = new DMSCoordinateDTO(30, 2, new BigDecimal(42.172), 'S');
+    DMSCoordinateDTO longitude = new DMSCoordinateDTO(51, 7, new BigDecimal(36.528), 'W');
     DMSCoordinatePairDTO dmsPairExpected = new DMSCoordinatePairDTO(latitude, longitude);
     DDCoordinatePairDTO ddPairTested = new DDCoordinatePairDTO(new BigDecimal(-30.0450477777777),new BigDecimal(-51.1268133333333));
     DMSCoordinatePairDTO dmsPairReturned = CoordinateConverter.convertDDCoordinatePairToDMSPair(ddPairTested);

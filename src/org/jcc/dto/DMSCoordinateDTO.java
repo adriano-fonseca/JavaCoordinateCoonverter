@@ -5,35 +5,35 @@ import java.math.RoundingMode;
 
 public class DMSCoordinateDTO {
   
-  BigDecimal degrees;
-  BigDecimal minutes;
+  int degrees;
+  int minutes;
   BigDecimal seconds;
   char direction;
   
   final static int SCALE = 13;
   final static RoundingMode ROUNDINGMODE = RoundingMode.HALF_UP;
   
-  public DMSCoordinateDTO(BigDecimal degree, BigDecimal minutes, BigDecimal seconds, char direction){
+  public DMSCoordinateDTO(int degree, int minutes, BigDecimal seconds, char direction){
     super();
-    this.degrees=degree.setScale(SCALE, ROUNDINGMODE);
-    this.minutes=minutes.setScale(SCALE, ROUNDINGMODE);
-    this.seconds=seconds.setScale(SCALE, ROUNDINGMODE);
+    this.degrees=degree;
+    this.minutes=minutes;
+    this.seconds=seconds.setScale(3, ROUNDINGMODE);
     this.direction=direction;
   }
 
-  public BigDecimal getDegrees() {
+  public int getDegrees() {
     return degrees;
   }
 
-  public void setDegrees(BigDecimal degrees) {
+  public void setDegrees(int degrees) {
     this.degrees = degrees;
   }
 
-  public BigDecimal getMinutes() {
+  public int getMinutes() {
     return minutes;
   }
 
-  public void setMinutes(BigDecimal minutes) {
+  public void setMinutes(int minutes) {
     this.minutes = minutes;
   }
 
@@ -57,9 +57,9 @@ public class DMSCoordinateDTO {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((degrees == null) ? 0 : degrees.hashCode());
+    result = prime * result + degrees;
     result = prime * result + direction;
-    result = prime * result + ((minutes == null) ? 0 : minutes.hashCode());
+    result = prime * result + minutes;
     result = prime * result + ((seconds == null) ? 0 : seconds.hashCode());
     return result;
   }
@@ -73,17 +73,11 @@ public class DMSCoordinateDTO {
     if (getClass() != obj.getClass())
       return false;
     DMSCoordinateDTO other = (DMSCoordinateDTO) obj;
-    if (degrees == null) {
-      if (other.degrees != null)
-        return false;
-    } else if (!degrees.equals(other.degrees))
+    if (degrees != other.degrees)
       return false;
     if (direction != other.direction)
       return false;
-    if (minutes == null) {
-      if (other.minutes != null)
-        return false;
-    } else if (!minutes.equals(other.minutes))
+    if (minutes != other.minutes)
       return false;
     if (seconds == null) {
       if (other.seconds != null)

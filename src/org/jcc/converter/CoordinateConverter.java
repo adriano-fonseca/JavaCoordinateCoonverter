@@ -81,12 +81,13 @@ public class CoordinateConverter {
     BigDecimal divisor3600 = THREETHOUSANDSIXHUNDRED;
     
     boolean negativeCoordinate = isNegative(dmsCoordinateDTO.getDirection());
-    BigDecimal part1 = dmsCoordinateDTO.getMinutes();
+    BigDecimal degrees = new BigDecimal(dmsCoordinateDTO.getDegrees());
+    BigDecimal part1 = new BigDecimal(dmsCoordinateDTO.getMinutes());
     BigDecimal part2 = dmsCoordinateDTO.getSeconds();
         
     part1 = part1.divide(divisor60, SCALE, ROUNDINGMODE);
     part2 = part2.divide(divisor3600, SCALE, ROUNDINGMODE);
-    dd = dmsCoordinateDTO.getDegrees().add(part1).add(part2);
+    dd = degrees.add(part1).add(part2);
     dd = negativeCoordinate ? dd.multiply(new BigDecimal(-1)) : dd;
     return dd;
   }
@@ -100,10 +101,10 @@ public class CoordinateConverter {
 
     BigDecimal negativeOne = new BigDecimal(-1);
     // Get user input
-    integralPart = ddCoordinate;
+    integralPart = new BigDecimal(ddCoordinate.intValue());
     fractionaryPart = ddCoordinate.subtract(integralPart);
     int answer = integralPart.compareTo(ZERO); // compare bg1 with bg2
-    System.out.println(answer);
+
     if(answer==-1){
       integralPart = integralPart.multiply(negativeOne);
       fractionaryPart = fractionaryPart.multiply(negativeOne);
@@ -111,11 +112,12 @@ public class CoordinateConverter {
     
     BigDecimal minutes = SIXTY.multiply(fractionaryPart);
 
-    integralPartFromMinutes = minutes;
+    integralPartFromMinutes = new BigDecimal(minutes.intValue());
     fractionaryPartFromMinutes = minutes.subtract(integralPartFromMinutes);
     BigDecimal seconds = SIXTY.multiply(fractionaryPartFromMinutes);
+    seconds = seconds.setScale(3,RoundingMode.HALF_UP);
     char direction = defineDirection(ddCoordinate, coordinateType);
-    return new DMSCoordinateDTO(integralPart, minutes, seconds, direction);
+    return new DMSCoordinateDTO(integralPart.intValue(), minutes.intValue(), seconds, direction);
   }
 
   private static char defineDirection(BigDecimal ddCoordinate, String coordinateType) {

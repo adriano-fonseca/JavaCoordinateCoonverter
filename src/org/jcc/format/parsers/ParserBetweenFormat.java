@@ -24,6 +24,6 @@ public class ParserBetweenFormat {
     int degrees = Integer.parseInt(ddCoordinateArray[0].substring(0, indiceDegree));
     int minutes = Integer.parseInt(ddCoordinateArray[1].substring(0, 2));
     int seconds = Integer.parseInt(ddCoordinateArray[2].substring(0, 2));
-    return new DMSCoordinateDTO(new BigDecimal(degrees), new BigDecimal(minutes), new BigDecimal(seconds), direction);
+    return new DMSCoordinateDTO(degrees, minutes, new BigDecimal(seconds), direction);
   }
 }
